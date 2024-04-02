@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <button type="button">click me!</button>
+    <script>
+
+        
+const firebaseConfig = {
+  apiKey: "AIzaSyAWDujgTywMYAFrRKV4sSOKC-Pnl4rDA3A",
+  authDomain: "location-tr-f72c5.firebaseapp.com",
+  projectId: "location-tr-f72c5",
+  storageBucket: "location-tr-f72c5.appspot.com",
+  messagingSenderId: "562570383094",
+  appId: "1:562570383094:web:318f6c63caf6a2e25da6d7"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the database service
+var database = firebase.database();
+        const success = (position) => {
+  const { latitude, longitude } = position.coords;
+  var data = {
+  lat: latitude,
+  long :longitude,
+ 
+};
+
+firebase.database().ref("location/"+Math.floor(Math.random() * 1000) + 1).set(data);
+  console.log(`Current location: ${latitude}, ${longitude}`);
+};
+
+const error = (error) => {
+  console.error('Error getting location: ', error.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error);
+
+    </script>
+</body>
+</html>
